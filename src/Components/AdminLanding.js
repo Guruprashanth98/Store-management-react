@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Inventory from './Inventory'
 import SalesTeam from './SalesTeam';
 import './AdminLanding.css'
@@ -10,6 +10,7 @@ const AdminLanding = () => {
     const [activeContainer, setActiveContainer] = useState('Display')
     const [id,setId] = useState("")
     const history  =  useHistory()
+    const [toggle, setToggle] = useState(false)
     const handleContainerChange = (str,id) =>{
         console.log(id)
         if(str === "inventory") {
@@ -24,13 +25,14 @@ const AdminLanding = () => {
 
     const handleAdd  = (saleActive) =>{
         setActiveContainer("Display")
+        setToggle(true)
     }
 
     return ( 
         <div className = "admin-landing">
             <h1>Admin Panel</h1>
             <div className = "container">
-                {activeContainer === "Display" && <AdminContainer fn = {handleContainerChange} edit={handleContainerChange}/>}
+                {activeContainer === "Display" && <AdminContainer fn = {handleContainerChange} edit={handleContainerChange} toggle={toggle}/>}
                 {activeContainer === "create-medicine" && <Create item  = {"medicine"} fn ={handleAdd} id={id}/>}
                 {activeContainer === "create-sales-executive" && <Create item  = {"sales-executive"} fn ={handleAdd} id={id}/>}
             </div>
@@ -40,16 +42,17 @@ const AdminLanding = () => {
  
 export default AdminLanding;
 
-const AdminContainer = ({fn,edit}) =>{
+const AdminContainer = ({fn,edit,toggle}) =>{
     
     const [active, setActive] = useState("inventory")
     const inventoryActive = () => setActive("inventory")
     const salesActive = () => setActive("sales")
-    
     const handleBtnClick  = () =>{
         active === "inventory" ? fn("inventory") : fn("sales")
     }
-
+    useEffect(() =>{
+        salesActive()
+    },[toggle])
     const style={
         borderBottom: "5px solid #20b883"
     }
