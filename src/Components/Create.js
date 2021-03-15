@@ -44,7 +44,7 @@ const CreateMedicine = ({fn, id}) =>{
         else{
             localStorage.setItem("medicines",JSON.stringify([formObj]))
         }
-        fn()
+        fn(false)
     }
     return (
         <form className = "create-medicine-form" onSubmit  = {handleSubmit}>
@@ -90,7 +90,7 @@ const CreateSalesExecutive  = ({fn,id}) =>{
         else{
             localStorage.setItem("sales-executives",JSON.stringify([formObj]))
         }
-        fn()
+        fn(true)
     }
     
     return (

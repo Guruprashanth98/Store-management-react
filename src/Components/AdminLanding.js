@@ -11,6 +11,7 @@ const AdminLanding = () => {
     const [id,setId] = useState("")
     const history  =  useHistory()
     const [toggle, setToggle] = useState(false)
+    console.log(toggle)
     const handleContainerChange = (str,id) =>{
         console.log(id)
         if(str === "inventory") {
@@ -25,7 +26,10 @@ const AdminLanding = () => {
 
     const handleAdd  = (saleActive) =>{
         setActiveContainer("Display")
-        setToggle(true)
+        if(saleActive){
+            console.log(saleActive)
+            setToggle(true)
+        }
     }
 
     return ( 
@@ -50,14 +54,17 @@ const AdminContainer = ({fn,edit,toggle}) =>{
     const handleBtnClick  = () =>{
         active === "inventory" ? fn("inventory") : fn("sales")
     }
-    useEffect(() =>{
-        inventoryActive()
-    },[])
+    console.log(toggle)
     useEffect(() =>{
         if(toggle){
             salesActive()
+            console.log("sales")
         }
-    },[toggle])
+        else{
+            inventoryActive()
+            console.log("inv")
+        }
+    },[])
     const style={
         borderBottom: "5px solid #20b883"
     }
