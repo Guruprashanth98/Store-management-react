@@ -51,7 +51,12 @@ const AdminContainer = ({fn,edit,toggle}) =>{
         active === "inventory" ? fn("inventory") : fn("sales")
     }
     useEffect(() =>{
-        salesActive()
+        inventoryActive()
+    },[])
+    useEffect(() =>{
+        if(toggle){
+            salesActive()
+        }
     },[toggle])
     const style={
         borderBottom: "5px solid #20b883"

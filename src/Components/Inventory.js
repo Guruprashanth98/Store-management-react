@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import './Inventory.css'
 
+
 const Inventory = ({edit}) => {
     var inventoryMedicines = localStorage.getItem("medicines")
     inventoryMedicines = JSON.parse(inventoryMedicines)
     console.log(inventoryMedicines)
     const [medicines, setMedicines] = useState(inventoryMedicines)
-    
     const handleDelete = (data) =>{
         setMedicines(medicines.filter(item => item.name !== data.name))
         var a = JSON.parse(localStorage.getItem("medicines"))
